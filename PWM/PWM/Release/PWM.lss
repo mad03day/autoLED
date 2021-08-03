@@ -1,0 +1,143 @@
+
+PWM.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000c8  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  0000013c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000002  00800060  00800060  0000013c  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  0000013c  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000016c  2**2
+                  CONTENTS, READONLY
+  5 .debug_info   000002dc  00000000  00000000  000001a8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000002b6  00000000  00000000  00000484  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000000ca  00000000  00000000  0000073a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    00000100  00000000  00000000  00000804  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	09 c0       	rjmp	.+18     	; 0x14 <__ctors_end>
+   2:	16 c0       	rjmp	.+44     	; 0x30 <__bad_interrupt>
+   4:	15 c0       	rjmp	.+42     	; 0x30 <__bad_interrupt>
+   6:	14 c0       	rjmp	.+40     	; 0x30 <__bad_interrupt>
+   8:	13 c0       	rjmp	.+38     	; 0x30 <__bad_interrupt>
+   a:	12 c0       	rjmp	.+36     	; 0x30 <__bad_interrupt>
+   c:	11 c0       	rjmp	.+34     	; 0x30 <__bad_interrupt>
+   e:	10 c0       	rjmp	.+32     	; 0x30 <__bad_interrupt>
+  10:	0f c0       	rjmp	.+30     	; 0x30 <__bad_interrupt>
+  12:	0f c0       	rjmp	.+30     	; 0x32 <__vector_9>
+
+00000014 <__ctors_end>:
+  14:	11 24       	eor	r1, r1
+  16:	1f be       	out	0x3f, r1	; 63
+  18:	cf e9       	ldi	r28, 0x9F	; 159
+  1a:	cd bf       	out	0x3d, r28	; 61
+
+0000001c <__do_clear_bss>:
+  1c:	20 e0       	ldi	r18, 0x00	; 0
+  1e:	a0 e6       	ldi	r26, 0x60	; 96
+  20:	b0 e0       	ldi	r27, 0x00	; 0
+  22:	01 c0       	rjmp	.+2      	; 0x26 <.do_clear_bss_start>
+
+00000024 <.do_clear_bss_loop>:
+  24:	1d 92       	st	X+, r1
+
+00000026 <.do_clear_bss_start>:
+  26:	a2 36       	cpi	r26, 0x62	; 98
+  28:	b2 07       	cpc	r27, r18
+  2a:	e1 f7       	brne	.-8      	; 0x24 <.do_clear_bss_loop>
+  2c:	3b d0       	rcall	.+118    	; 0xa4 <main>
+  2e:	4a c0       	rjmp	.+148    	; 0xc4 <_exit>
+
+00000030 <__bad_interrupt>:
+  30:	e7 cf       	rjmp	.-50     	; 0x0 <__vectors>
+
+00000032 <__vector_9>:
+  32:	1f 92       	push	r1
+  34:	0f 92       	push	r0
+  36:	0f b6       	in	r0, 0x3f	; 63
+  38:	0f 92       	push	r0
+  3a:	11 24       	eor	r1, r1
+  3c:	8f 93       	push	r24
+  3e:	85 b1       	in	r24, 0x05	; 5
+  40:	80 93 61 00 	sts	0x0061, r24	; 0x800061 <adc>
+  44:	8f 91       	pop	r24
+  46:	0f 90       	pop	r0
+  48:	0f be       	out	0x3f, r0	; 63
+  4a:	0f 90       	pop	r0
+  4c:	1f 90       	pop	r1
+  4e:	18 95       	reti
+
+00000050 <CheckButtton>:
+  50:	b1 99       	sbic	0x16, 1	; 22
+  52:	1b c0       	rjmp	.+54     	; 0x8a <CheckButtton+0x3a>
+  54:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  58:	81 11       	cpse	r24, r1
+  5a:	0c c0       	rjmp	.+24     	; 0x74 <CheckButtton+0x24>
+  5c:	8f e7       	ldi	r24, 0x7F	; 127
+  5e:	9b eb       	ldi	r25, 0xBB	; 187
+  60:	01 97       	sbiw	r24, 0x01	; 1
+  62:	f1 f7       	brne	.-4      	; 0x60 <CheckButtton+0x10>
+  64:	00 c0       	rjmp	.+0      	; 0x66 <CheckButtton+0x16>
+  66:	00 00       	nop
+  68:	b1 9b       	sbis	0x16, 1	; 22
+  6a:	0f c0       	rjmp	.+30     	; 0x8a <CheckButtton+0x3a>
+  6c:	8f ef       	ldi	r24, 0xFF	; 255
+  6e:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+  72:	08 95       	ret
+  74:	8f 3f       	cpi	r24, 0xFF	; 255
+  76:	49 f4       	brne	.+18     	; 0x8a <CheckButtton+0x3a>
+  78:	8f e7       	ldi	r24, 0x7F	; 127
+  7a:	9b eb       	ldi	r25, 0xBB	; 187
+  7c:	01 97       	sbiw	r24, 0x01	; 1
+  7e:	f1 f7       	brne	.-4      	; 0x7c <CheckButtton+0x2c>
+  80:	00 c0       	rjmp	.+0      	; 0x82 <CheckButtton+0x32>
+  82:	00 00       	nop
+  84:	b1 99       	sbic	0x16, 1	; 22
+  86:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <__DATA_REGION_ORIGIN__>
+  8a:	08 95       	ret
+
+0000008c <AutoMode>:
+  8c:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  90:	8f 3f       	cpi	r24, 0xFF	; 255
+  92:	29 f4       	brne	.+10     	; 0x9e <AutoMode+0x12>
+  94:	c3 9a       	sbi	0x18, 3	; 24
+  96:	80 91 61 00 	lds	r24, 0x0061	; 0x800061 <adc>
+  9a:	86 bf       	out	0x36, r24	; 54
+  9c:	08 95       	ret
+  9e:	c3 98       	cbi	0x18, 3	; 24
+  a0:	16 be       	out	0x36, r1	; 54
+  a2:	08 95       	ret
+
+000000a4 <main>:
+  a4:	89 e0       	ldi	r24, 0x09	; 9
+  a6:	87 bb       	out	0x17, r24	; 23
+  a8:	c1 9a       	sbi	0x18, 1	; 24
+  aa:	81 e2       	ldi	r24, 0x21	; 33
+  ac:	87 b9       	out	0x07, r24	; 7
+  ae:	8a ee       	ldi	r24, 0xEA	; 234
+  b0:	86 b9       	out	0x06, r24	; 6
+  b2:	13 b8       	out	0x03, r1	; 3
+  b4:	83 ec       	ldi	r24, 0xC3	; 195
+  b6:	8f bd       	out	0x2f, r24	; 47
+  b8:	81 e0       	ldi	r24, 0x01	; 1
+  ba:	83 bf       	out	0x33, r24	; 51
+  bc:	78 94       	sei
+  be:	c8 df       	rcall	.-112    	; 0x50 <CheckButtton>
+  c0:	e5 df       	rcall	.-54     	; 0x8c <AutoMode>
+  c2:	fd cf       	rjmp	.-6      	; 0xbe <main+0x1a>
+
+000000c4 <_exit>:
+  c4:	f8 94       	cli
+
+000000c6 <__stop_program>:
+  c6:	ff cf       	rjmp	.-2      	; 0xc6 <__stop_program>

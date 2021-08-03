@@ -1,0 +1,225 @@
+
+PWM.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000d4  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  00000148  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000002  00800060  00800060  00000148  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000148  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000178  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000038  00000000  00000000  000001b4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   0000049f  00000000  00000000  000001ec  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000003fc  00000000  00000000  0000068b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000002ac  00000000  00000000  00000a87  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000064  00000000  00000000  00000d34  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    0000029a  00000000  00000000  00000d98  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    000000cc  00000000  00000000  00001032  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000028  00000000  00000000  000010fe  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	09 c0       	rjmp	.+18     	; 0x14 <__ctors_end>
+   2:	16 c0       	rjmp	.+44     	; 0x30 <__bad_interrupt>
+   4:	15 c0       	rjmp	.+42     	; 0x30 <__bad_interrupt>
+   6:	14 c0       	rjmp	.+40     	; 0x30 <__bad_interrupt>
+   8:	13 c0       	rjmp	.+38     	; 0x30 <__bad_interrupt>
+   a:	12 c0       	rjmp	.+36     	; 0x30 <__bad_interrupt>
+   c:	11 c0       	rjmp	.+34     	; 0x30 <__bad_interrupt>
+   e:	10 c0       	rjmp	.+32     	; 0x30 <__bad_interrupt>
+  10:	0f c0       	rjmp	.+30     	; 0x30 <__bad_interrupt>
+  12:	0f c0       	rjmp	.+30     	; 0x32 <__vector_9>
+
+00000014 <__ctors_end>:
+  14:	11 24       	eor	r1, r1
+  16:	1f be       	out	0x3f, r1	; 63
+  18:	cf e9       	ldi	r28, 0x9F	; 159
+  1a:	cd bf       	out	0x3d, r28	; 61
+
+0000001c <__do_clear_bss>:
+  1c:	20 e0       	ldi	r18, 0x00	; 0
+  1e:	a0 e6       	ldi	r26, 0x60	; 96
+  20:	b0 e0       	ldi	r27, 0x00	; 0
+  22:	01 c0       	rjmp	.+2      	; 0x26 <.do_clear_bss_start>
+
+00000024 <.do_clear_bss_loop>:
+  24:	1d 92       	st	X+, r1
+
+00000026 <.do_clear_bss_start>:
+  26:	a2 36       	cpi	r26, 0x62	; 98
+  28:	b2 07       	cpc	r27, r18
+  2a:	e1 f7       	brne	.-8      	; 0x24 <.do_clear_bss_loop>
+  2c:	3f d0       	rcall	.+126    	; 0xac <main>
+  2e:	50 c0       	rjmp	.+160    	; 0xd0 <_exit>
+
+00000030 <__bad_interrupt>:
+  30:	e7 cf       	rjmp	.-50     	; 0x0 <__vectors>
+
+00000032 <__vector_9>:
+		AutoMode();		
+    }
+}
+
+ISR(ADC_vect)
+{
+  32:	1f 92       	push	r1
+  34:	0f 92       	push	r0
+  36:	0f b6       	in	r0, 0x3f	; 63
+  38:	0f 92       	push	r0
+  3a:	11 24       	eor	r1, r1
+  3c:	8f 93       	push	r24
+	adc = ADCH;	
+  3e:	85 b1       	in	r24, 0x05	; 5
+  40:	80 93 61 00 	sts	0x0061, r24	; 0x800061 <adc>
+}
+  44:	8f 91       	pop	r24
+  46:	0f 90       	pop	r0
+  48:	0f be       	out	0x3f, r0	; 63
+  4a:	0f 90       	pop	r0
+  4c:	1f 90       	pop	r1
+  4e:	18 95       	reti
+
+00000050 <CheckButtton>:
+
+void CheckButtton (void)
+{
+	if (!(PINB & (1 << PB1)))
+  50:	b1 99       	sbic	0x16, 1	; 22
+  52:	1b c0       	rjmp	.+54     	; 0x8a <CheckButtton+0x3a>
+	{
+		if (ModeAuto == 0x00)
+  54:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  58:	81 11       	cpse	r24, r1
+  5a:	0c c0       	rjmp	.+24     	; 0x74 <CheckButtton+0x24>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  5c:	8f e7       	ldi	r24, 0x7F	; 127
+  5e:	9b eb       	ldi	r25, 0xBB	; 187
+  60:	01 97       	sbiw	r24, 0x01	; 1
+  62:	f1 f7       	brne	.-4      	; 0x60 <CheckButtton+0x10>
+  64:	00 c0       	rjmp	.+0      	; 0x66 <CheckButtton+0x16>
+  66:	00 00       	nop
+		{
+			_delay_ms(40);
+			if (PINB & (1 << PB1))
+  68:	b1 9b       	sbis	0x16, 1	; 22
+  6a:	0f c0       	rjmp	.+30     	; 0x8a <CheckButtton+0x3a>
+			{
+				ModeAuto = 0xff;
+  6c:	8f ef       	ldi	r24, 0xFF	; 255
+  6e:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+  72:	08 95       	ret
+			}	
+		return;	
+		}
+		if (ModeAuto == 0xff)
+  74:	8f 3f       	cpi	r24, 0xFF	; 255
+  76:	49 f4       	brne	.+18     	; 0x8a <CheckButtton+0x3a>
+  78:	8f e7       	ldi	r24, 0x7F	; 127
+  7a:	9b eb       	ldi	r25, 0xBB	; 187
+  7c:	01 97       	sbiw	r24, 0x01	; 1
+  7e:	f1 f7       	brne	.-4      	; 0x7c <CheckButtton+0x2c>
+  80:	00 c0       	rjmp	.+0      	; 0x82 <CheckButtton+0x32>
+  82:	00 00       	nop
+		{
+			_delay_ms(40);
+			if (PINB & (1 << PB1))
+  84:	b1 99       	sbic	0x16, 1	; 22
+			{
+				ModeAuto = 0x00;
+  86:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <__DATA_REGION_ORIGIN__>
+  8a:	08 95       	ret
+
+0000008c <AutoMode>:
+	
+}
+
+void AutoMode (void)
+{
+	if (ModeAuto == 0xff)	//Включение автоматического режима
+  8c:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  90:	8f 3f       	cpi	r24, 0xFF	; 255
+  92:	39 f4       	brne	.+14     	; 0xa2 <__stack+0x3>
+	{
+		PORTB |= (1<<PB3);
+  94:	88 b3       	in	r24, 0x18	; 24
+  96:	88 60       	ori	r24, 0x08	; 8
+  98:	88 bb       	out	0x18, r24	; 24
+		OCR0A = adc;
+  9a:	80 91 61 00 	lds	r24, 0x0061	; 0x800061 <adc>
+  9e:	86 bf       	out	0x36, r24	; 54
+  a0:	08 95       	ret
+	}
+	else					//Включение 100% свечения
+	{
+		PORTB &= ~(1<<PB3);	
+  a2:	88 b3       	in	r24, 0x18	; 24
+  a4:	87 7f       	andi	r24, 0xF7	; 247
+  a6:	88 bb       	out	0x18, r24	; 24
+		OCR0A = 0;
+  a8:	16 be       	out	0x36, r1	; 54
+  aa:	08 95       	ret
+
+000000ac <main>:
+void CheckButtton(void); //Функция отслеживания та обработки нажатия кнопки
+void AutoMode (void); //Функция смены автоматический регулировки на постоянный свет
+
+int main(void)
+{
+	DDRB = 0b00001001; //Настройка портов
+  ac:	89 e0       	ldi	r24, 0x09	; 9
+  ae:	87 bb       	out	0x17, r24	; 23
+	PORTB |= (1<<PB1);
+  b0:	88 b3       	in	r24, 0x18	; 24
+  b2:	82 60       	ori	r24, 0x02	; 2
+  b4:	88 bb       	out	0x18, r24	; 24
+	
+	ADMUX = 0b00100001;	//Настройка АЦП
+  b6:	81 e2       	ldi	r24, 0x21	; 33
+  b8:	87 b9       	out	0x07, r24	; 7
+	ADCSRA = 0b11101010;
+  ba:	8a ee       	ldi	r24, 0xEA	; 234
+  bc:	86 b9       	out	0x06, r24	; 6
+	ADCSRB = 0x00;
+  be:	13 b8       	out	0x03, r1	; 3
+	
+	TCCR0A = 0b11000011; //Настройка таймеров
+  c0:	83 ec       	ldi	r24, 0xC3	; 195
+  c2:	8f bd       	out	0x2f, r24	; 47
+	TCCR0B = 0b00000001;
+  c4:	81 e0       	ldi	r24, 0x01	; 1
+  c6:	83 bf       	out	0x33, r24	; 51
+    
+	sei(); //Разрешение прерываний
+  c8:	78 94       	sei
+    while (1) 
+    {
+		CheckButtton();
+  ca:	c2 df       	rcall	.-124    	; 0x50 <CheckButtton>
+		AutoMode();		
+  cc:	df df       	rcall	.-66     	; 0x8c <AutoMode>
+  ce:	fd cf       	rjmp	.-6      	; 0xca <main+0x1e>
+
+000000d0 <_exit>:
+  d0:	f8 94       	cli
+
+000000d2 <__stop_program>:
+  d2:	ff cf       	rjmp	.-2      	; 0xd2 <__stop_program>

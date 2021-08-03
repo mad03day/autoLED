@@ -1,0 +1,557 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD21\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">24.01.2021</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">15:28:12</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc" class="file"><acronym title="E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc">E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">71</td></tr>
+</table>
+</td>
+</table><a name="IDO0TMXIYWK5Q2CG3H0W32CWJHDPS1QITWF2VQOCF2EJ0NUUUZYNRG"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDMUZGIUMPUJWOLUVQ30JS3AVUQBW2XW22TL2CWYPCDUNA1EJCRADP">Clearance Constraint (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDC1YO3LDHRIVQJGOHHOT2YFU01JCSGFTGT3VOY1FVAAAVB5M5XJKN">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDRNXZ2S1HHKWSJZ1TXREEN05RHKS3HXJI5YFKCILN0K3RDOPCLYHC">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDC0SLWTZG2RHTPPX4JJAOCSDBSF3I34UILFZUAVK4YCLKOB2DJXCD">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDCT24UQ1M34T3NJOIGYFFDEUORDSADONUDXCKALFIOZCZJJYWNIZD">Width Constraint (Min=0.3mm) (Max=1mm) (Preferred=0.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDHTYFGWTKRUBUNZL3VQXFLOHFRP41LDZWOKUBCFFXJWEVMWZB02DM">Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDRJQZCVVVVVZUQV0EGJSUMV2NL4CZTR1SIFKPPGTOVS2FMYGROLP">Hole Size Constraint (Min=0.025mm) (Max=2.54mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDCHIKFJ5HMUL3DUBNLM1DIGBFZJQO2MWKDW3IYXMLQ0NOCSVIEETI">Hole To Hole Clearance (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDSKGL1FMXTD0UGOSHSGD13MODTHZP21DAFFCBGUPKU2KG5LTCJGVI">Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">1</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDTHDRW5QAQ0BDI3CHIMMS2YC0FONYCMKPIV2MPI110QCRT0U4W3O">Silk To Solder Mask (Clearance=0.254mm) (IsPad),(All)</a></td>
+<td class="column2">28</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDZUQGUJCFI3YKQ4FLHPA2MPRGEVKBGQECCP2IQLCKSQ0MDZMORCP">Silk to Silk (Clearance=0.254mm) (All),(All)</a></td>
+<td class="column2">20</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDSEILNZ2FLIRRPWTJFSVP4AKILFRI33HXG4OILVN0VSFV1OZ11BZK">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDF24QIQWKX3LBE4JOCZ3HWX2TYPZQHUX3M54CPMMEUKJA3N0HL1VG">Board Clearance Constraint (Gap=0mm) (All)</a></td>
+<td class="column2">22</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDWNZLGZFCUIB0JYXWIOOO5Y451M050V1R1ECJYNF15HLNAW0EZ2BM">Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">71</td>
+</tr>
+</table><br><a name="IDSKGL1FMXTD0UGOSHSGD13MODTHZP21DAFFCBGUPKU2KG5LTCJGVI"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1335.075mil|Location2.X=1348.354mil|Location1.Y=1085.969mil|Location2.Y=1097.219mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1335.075mil|Location2.X=1348.354mil|Location1.Y=1085.969mil|Location2.Y=1097.219mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.102mm &lt; 0.254mm) Between Pad IC1-4(9.3mm,2.7mm) on Top Layer And Via (7.25mm,0.75mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.102mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDTHDRW5QAQ0BDI3CHIMMS2YC0FONYCMKPIV2MPI110QCRT0U4W3O"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=0.254mm) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1284.96mil|Location2.X=1296.21mil|Location1.Y=1638.076mil|Location2.Y=1649.326mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1284.96mil|Location2.X=1296.21mil|Location1.Y=1638.076mil|Location2.Y=1649.326mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad C1-1(7.206mm,15.5mm) on Multi-Layer And Track (5.056mm,15.5mm)(6.056mm,15.5mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2414.558mil|Location2.X=2425.808mil|Location1.Y=1529.149mil|Location2.Y=1540.399mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2414.558mil|Location2.X=2425.808mil|Location1.Y=1529.149mil|Location2.Y=1540.399mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.067mm &lt; 0.254mm) Between Pad J10-1(35.709mm,14.267mm) on Top Layer And Text "J8" (34.306mm,11.6mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.067mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1088.112mil|Location2.X=1095.778mil|Location1.Y=1580.812mil|Location2.Y=1588.479mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1088.112mil|Location2.X=1095.778mil|Location1.Y=1580.812mil|Location2.Y=1588.479mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Pad J1-1(2mm,15.5mm) on Top Layer And Text "R1" (1.235mm,13.988mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1810.35mil|Location2.X=1818.016mil|Location1.Y=1764.681mil|Location2.Y=1772.348mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1810.35mil|Location2.X=1818.016mil|Location1.Y=1764.681mil|Location2.Y=1772.348mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Pad J2-1(21.113mm,19.304mm) on Top Layer And Text "J5" (18.914mm,17.671mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1940.112mil|Location2.X=1947.778mil|Location1.Y=1730.586mil|Location2.Y=1738.253mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1940.112mil|Location2.X=1947.778mil|Location1.Y=1730.586mil|Location2.Y=1738.253mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Pad J2-1(21.113mm,19.304mm) on Top Layer And Text "R2" (22.876mm,17.569mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2243.112mil|Location2.X=2250.778mil|Location1.Y=1730.586mil|Location2.Y=1738.253mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2243.112mil|Location2.X=2250.778mil|Location1.Y=1730.586mil|Location2.Y=1738.253mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Pad J4-1(30.885mm,19.304mm) on Top Layer And Text "R4" (30.572mm,17.493mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1801.112mil|Location2.X=1808.778mil|Location1.Y=1667.681mil|Location2.Y=1675.348mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1801.112mil|Location2.X=1808.778mil|Location1.Y=1667.681mil|Location2.Y=1675.348mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Pad J5-1(20.559mm,15.873mm) on Top Layer And Text "U1" (19.346mm,15.207mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2123.35mil|Location2.X=2131.016mil|Location1.Y=1754.122mil|Location2.Y=1761.789mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2123.35mil|Location2.X=2131.016mil|Location1.Y=1754.122mil|Location2.Y=1761.789mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Pad J6-1(25.977mm,19.304mm) on Top Layer And Text "C3" (26.864mm,17.569mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1988.731mil|Location2.X=1996.397mil|Location1.Y=1730.586mil|Location2.Y=1738.252mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1988.731mil|Location2.X=1996.397mil|Location1.Y=1730.586mil|Location2.Y=1738.252mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Pad J6-1(25.977mm,19.304mm) on Top Layer And Text "R2" (22.876mm,17.569mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2390.112mil|Location2.X=2397.778mil|Location1.Y=1376.151mil|Location2.Y=1383.818mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2390.112mil|Location2.X=2397.778mil|Location1.Y=1376.151mil|Location2.Y=1383.818mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Pad J8-1(35.959mm,9.802mm) on Top Layer And Text "R5" (34.306mm,8.654mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2394.558mil|Location2.X=2405.808mil|Location1.Y=1725.211mil|Location2.Y=1736.461mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2394.558mil|Location2.X=2405.808mil|Location1.Y=1725.211mil|Location2.Y=1736.461mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.07mm &lt; 0.254mm) Between Pad J9-1(35.709mm,19.248mm) on Top Layer And Text "J10" (33.798mm,16.578mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1089.029mil|Location2.X=1096.695mil|Location1.Y=1258.681mil|Location2.Y=1266.348mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1089.029mil|Location2.X=1096.695mil|Location1.Y=1258.681mil|Location2.Y=1266.348mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Pad LD1-1(2mm,5.23mm) on Multi-Layer And Text "J3" (0.092mm,4.818mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1599.35mil|Location2.X=1607.016mil|Location1.Y=1306.681mil|Location2.Y=1314.348mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1599.35mil|Location2.X=1607.016mil|Location1.Y=1306.681mil|Location2.Y=1314.348mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Pad LD2-1(13.931mm,7.386mm) on Multi-Layer And Text "J7" (13.554mm,6.037mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1849.474mil|Location2.X=1860.724mil|Location1.Y=1265.326mil|Location2.Y=1276.576mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1849.474mil|Location2.X=1860.724mil|Location1.Y=1265.326mil|Location2.Y=1276.576mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad PB1-1(20.5mm,7mm) on Multi-Layer And Track (20.65mm,3.691mm)(20.65mm,5.809mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1871.898mil|Location2.X=1883.148mil|Location1.Y=1330.599mil|Location2.Y=1341.849mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1871.898mil|Location2.X=1883.148mil|Location1.Y=1330.599mil|Location2.Y=1341.849mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad PB1-1(20.5mm,7mm) on Multi-Layer And Track (21.347mm,7.85mm)(26.153mm,7.85mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1883.165mil|Location2.X=1894.415mil|Location1.Y=1303.43mil|Location2.Y=1314.68mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1883.165mil|Location2.X=1894.415mil|Location1.Y=1303.43mil|Location2.Y=1314.68mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad PB1-1(20.5mm,7mm) on Multi-Layer And Track (21.7mm,7mm)(25.8mm,7mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2073.549mil|Location2.X=2084.799mil|Location1.Y=1330.599mil|Location2.Y=1341.849mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2073.549mil|Location2.X=2084.799mil|Location1.Y=1330.599mil|Location2.Y=1341.849mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad PB1-2(27mm,7mm) on Multi-Layer And Track (21.347mm,7.85mm)(26.153mm,7.85mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2062.283mil|Location2.X=2073.533mil|Location1.Y=1303.43mil|Location2.Y=1314.68mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2062.283mil|Location2.X=2073.533mil|Location1.Y=1303.43mil|Location2.Y=1314.68mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.249mm &lt; 0.254mm) Between Pad PB1-2(27mm,7mm) on Multi-Layer And Track (21.7mm,7mm)(25.8mm,7mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.249mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2095.973mil|Location2.X=2107.223mil|Location1.Y=1265.326mil|Location2.Y=1276.576mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2095.973mil|Location2.X=2107.223mil|Location1.Y=1265.326mil|Location2.Y=1276.576mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad PB1-2(27mm,7mm) on Multi-Layer And Track (26.85mm,3.691mm)(26.85mm,5.809mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1849.474mil|Location2.X=1860.724mil|Location1.Y=1164.369mil|Location2.Y=1175.619mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1849.474mil|Location2.X=1860.724mil|Location1.Y=1164.369mil|Location2.Y=1175.619mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad PB1-3(20.5mm,2.5mm) on Multi-Layer And Track (20.65mm,3.691mm)(20.65mm,5.809mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1871.898mil|Location2.X=1883.148mil|Location1.Y=1099.095mil|Location2.Y=1110.345mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1871.898mil|Location2.X=1883.148mil|Location1.Y=1099.095mil|Location2.Y=1110.345mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad PB1-3(20.5mm,2.5mm) on Multi-Layer And Track (21.347mm,1.65mm)(26.153mm,1.65mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1883.165mil|Location2.X=1894.415mil|Location1.Y=1126.265mil|Location2.Y=1137.515mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1883.165mil|Location2.X=1894.415mil|Location1.Y=1126.265mil|Location2.Y=1137.515mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad PB1-3(20.5mm,2.5mm) on Multi-Layer And Track (21.7mm,2.5mm)(25.8mm,2.5mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2073.549mil|Location2.X=2084.799mil|Location1.Y=1099.096mil|Location2.Y=1110.346mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2073.549mil|Location2.X=2084.799mil|Location1.Y=1099.096mil|Location2.Y=1110.346mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad PB1-4(27mm,2.5mm) on Multi-Layer And Track (21.347mm,1.65mm)(26.153mm,1.65mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2062.283mil|Location2.X=2073.533mil|Location1.Y=1126.265mil|Location2.Y=1137.515mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2062.283mil|Location2.X=2073.533mil|Location1.Y=1126.265mil|Location2.Y=1137.515mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.249mm &lt; 0.254mm) Between Pad PB1-4(27mm,2.5mm) on Multi-Layer And Track (21.7mm,2.5mm)(25.8mm,2.5mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.249mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2095.973mil|Location2.X=2107.223mil|Location1.Y=1164.369mil|Location2.Y=1175.619mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2095.973mil|Location2.X=2107.223mil|Location1.Y=1164.369mil|Location2.Y=1175.619mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad PB1-4(27mm,2.5mm) on Multi-Layer And Track (26.85mm,3.691mm)(26.85mm,5.809mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1094.469mil|Location2.X=1102.136mil|Location1.Y=1432.681mil|Location2.Y=1440.348mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1094.469mil|Location2.X=1102.136mil|Location1.Y=1432.681mil|Location2.Y=1440.348mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Pad R1-1(2mm,10.5mm) on Top Layer And Text "LD1" (0.397mm,9.238mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1671.065mil|Location2.X=1678.731mil|Location1.Y=1419.324mil|Location2.Y=1426.991mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1671.065mil|Location2.X=1678.731mil|Location1.Y=1419.324mil|Location2.Y=1426.991mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Pad R3-1(16.5mm,10.25mm) on Top Layer And Text "LD2" (13.377mm,9.898mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1817.112mil|Location2.X=1824.778mil|Location1.Y=1395.657mil|Location2.Y=1403.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1817.112mil|Location2.X=1824.778mil|Location1.Y=1395.657mil|Location2.Y=1403.323mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Pad U1-4(20.538mm,9.595mm) on Top Layer And Text "PB1" (19.752mm,8.654mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDZUQGUJCFI3YKQ4FLHPA2MPRGEVKBGQECCP2IQLCKSQ0MDZMORCP"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk to Silk (Clearance=0.254mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1063.758mil|Location2.X=1071.425mil|Location1.Y=1222.368mil|Location2.Y=1230.035mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1063.758mil|Location2.X=1071.425mil|Location1.Y=1222.368mil|Location2.Y=1230.035mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.254mm) Between Arc (0.65mm,4.775mm) on Top Overlay And Text "J3" (0.092mm,4.818mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1591.325mil|Location2.X=1598.992mil|Location1.Y=1272.374mil|Location2.Y=1280.04mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1591.325mil|Location2.X=1598.992mil|Location1.Y=1272.374mil|Location2.Y=1280.04mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.254mm) Between Arc (15.201mm,7.386mm) on Top Overlay And Text "J7" (13.554mm,6.037mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1056.909mil|Location2.X=1064.575mil|Location1.Y=1258.681mil|Location2.Y=1266.348mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1056.909mil|Location2.X=1064.575mil|Location1.Y=1258.681mil|Location2.Y=1266.348mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.254mm) Between Arc (2mm,6.5mm) on Top Overlay And Text "J3" (0.092mm,4.818mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1283.94mil|Location2.X=1291.606mil|Location1.Y=1485.681mil|Location2.Y=1493.348mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1283.94mil|Location2.X=1291.606mil|Location1.Y=1485.681mil|Location2.Y=1493.348mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.254mm) Between Arc (9.706mm,15.5mm) on Top Overlay And Text "IC1" (5.884mm,10.584mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1629.271mil|Location2.X=1636.938mil|Location1.Y=1306.681mil|Location2.Y=1314.348mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1629.271mil|Location2.X=1636.938mil|Location1.Y=1306.681mil|Location2.Y=1314.348mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.254mm) Between Text "J7" (13.554mm,6.037mm) on Top Overlay And Track (14.981mm,6.886mm)(14.981mm,7.886mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1640.197mil|Location2.X=1647.863mil|Location1.Y=1307.992mil|Location2.Y=1315.659mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1640.197mil|Location2.X=1647.863mil|Location1.Y=1307.992mil|Location2.Y=1315.659mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.254mm) Between Text "J7" (13.554mm,6.037mm) on Top Overlay And Track (14.981mm,7.386mm)(15.421mm,6.886mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1641.27mil|Location2.X=1648.936mil|Location1.Y=1309.5mil|Location2.Y=1317.167mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1641.27mil|Location2.X=1648.936mil|Location1.Y=1309.5mil|Location2.Y=1317.167mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.254mm) Between Text "J7" (13.554mm,6.037mm) on Top Overlay And Track (14.981mm,7.386mm)(15.421mm,6.986mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1642.101mil|Location2.X=1649.768mil|Location1.Y=1311.66mil|Location2.Y=1319.326mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1642.101mil|Location2.X=1649.768mil|Location1.Y=1311.66mil|Location2.Y=1319.326mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.254mm) Between Text "J7" (13.554mm,6.037mm) on Top Overlay And Track (14.981mm,7.386mm)(15.421mm,7.086mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1638.693mil|Location2.X=1651.838mil|Location1.Y=1308.8mil|Location2.Y=1320.05mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1638.693mil|Location2.X=1651.838mil|Location1.Y=1308.8mil|Location2.Y=1320.05mil|Absolute=True">Silk To Silk Clearance Constraint: (0.018mm &lt; 0.254mm) Between Text "J7" (13.554mm,6.037mm) on Top Overlay And Track (14.981mm,7.386mm)(15.421mm,7.186mm) on Top Overlay Silk Text to Silk Clearance [0.018mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1638.167mil|Location2.X=1649.417mil|Location1.Y=1310.396mil|Location2.Y=1321.646mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1638.167mil|Location2.X=1649.417mil|Location1.Y=1310.396mil|Location2.Y=1321.646mil|Absolute=True">Silk To Silk Clearance Constraint: (0.087mm &lt; 0.254mm) Between Text "J7" (13.554mm,6.037mm) on Top Overlay And Track (14.981mm,7.386mm)(15.421mm,7.286mm) on Top Overlay Silk Text to Silk Clearance [0.087mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.48mil|Location2.X=1638.73mil|Location1.Y=1311.753mil|Location2.Y=1323.003mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.48mil|Location2.X=1638.73mil|Location1.Y=1311.753mil|Location2.Y=1323.003mil|Absolute=True">Silk To Silk Clearance Constraint: (0.149mm &lt; 0.254mm) Between Text "J7" (13.554mm,6.037mm) on Top Overlay And Track (14.981mm,7.386mm)(15.421mm,7.386mm) on Top Overlay Silk Text to Silk Clearance [0.149mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.48mil|Location2.X=1638.73mil|Location1.Y=1311.753mil|Location2.Y=1323.003mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.48mil|Location2.X=1638.73mil|Location1.Y=1311.753mil|Location2.Y=1323.003mil|Absolute=True">Silk To Silk Clearance Constraint: (0.149mm &lt; 0.254mm) Between Text "J7" (13.554mm,6.037mm) on Top Overlay And Track (14.981mm,7.386mm)(15.421mm,7.486mm) on Top Overlay Silk Text to Silk Clearance [0.149mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.48mil|Location2.X=1638.73mil|Location1.Y=1311.753mil|Location2.Y=1323.003mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.48mil|Location2.X=1638.73mil|Location1.Y=1311.753mil|Location2.Y=1323.003mil|Absolute=True">Silk To Silk Clearance Constraint: (0.149mm &lt; 0.254mm) Between Text "J7" (13.554mm,6.037mm) on Top Overlay And Track (14.981mm,7.386mm)(15.421mm,7.586mm) on Top Overlay Silk Text to Silk Clearance [0.149mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.48mil|Location2.X=1638.73mil|Location1.Y=1311.753mil|Location2.Y=1323.003mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.48mil|Location2.X=1638.73mil|Location1.Y=1311.753mil|Location2.Y=1323.003mil|Absolute=True">Silk To Silk Clearance Constraint: (0.149mm &lt; 0.254mm) Between Text "J7" (13.554mm,6.037mm) on Top Overlay And Track (14.981mm,7.386mm)(15.421mm,7.686mm) on Top Overlay Silk Text to Silk Clearance [0.149mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.48mil|Location2.X=1638.73mil|Location1.Y=1311.753mil|Location2.Y=1323.003mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.48mil|Location2.X=1638.73mil|Location1.Y=1311.753mil|Location2.Y=1323.003mil|Absolute=True">Silk To Silk Clearance Constraint: (0.149mm &lt; 0.254mm) Between Text "J7" (13.554mm,6.037mm) on Top Overlay And Track (14.981mm,7.386mm)(15.421mm,7.786mm) on Top Overlay Silk Text to Silk Clearance [0.149mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.48mil|Location2.X=1638.73mil|Location1.Y=1311.753mil|Location2.Y=1323.003mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.48mil|Location2.X=1638.73mil|Location1.Y=1311.753mil|Location2.Y=1323.003mil|Absolute=True">Silk To Silk Clearance Constraint: (0.149mm &lt; 0.254mm) Between Text "J7" (13.554mm,6.037mm) on Top Overlay And Track (14.981mm,7.386mm)(15.421mm,7.886mm) on Top Overlay Silk Text to Silk Clearance [0.149mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1640.859mil|Location2.X=1652.109mil|Location1.Y=1304.89mil|Location2.Y=1316.14mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1640.859mil|Location2.X=1652.109mil|Location1.Y=1304.89mil|Location2.Y=1316.14mil|Absolute=True">Silk To Silk Clearance Constraint: (0mm &lt; 0.254mm) Between Text "J7" (13.554mm,6.037mm) on Top Overlay And Track (15.421mm,6.886mm)(15.421mm,7.886mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1664.174mil|Location2.X=1675.424mil|Location1.Y=1463.821mil|Location2.Y=1475.071mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1664.174mil|Location2.X=1675.424mil|Location1.Y=1463.821mil|Location2.Y=1475.071mil|Absolute=True">Silk To Silk Clearance Constraint: (0.16mm &lt; 0.254mm) Between Text "LD2" (13.377mm,9.898mm) on Top Overlay And Track (15.95mm,11.25mm)(17.05mm,11.25mm) on Top Overlay Silk Text to Silk Clearance [0.16mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1907.113mil|Location2.X=1914.779mil|Location1.Y=1383.962mil|Location2.Y=1391.629mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1907.113mil|Location2.X=1914.779mil|Location1.Y=1383.962mil|Location2.Y=1391.629mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.254mm) Between Text "PB1" (19.752mm,8.654mm) on Top Overlay And Track (22.038mm,9mm)(22.038mm,14mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1907.113mil|Location2.X=1914.779mil|Location1.Y=1383.962mil|Location2.Y=1391.629mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1907.113mil|Location2.X=1914.779mil|Location1.Y=1383.962mil|Location2.Y=1391.629mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.254mm) Between Text "PB1" (19.752mm,8.654mm) on Top Overlay And Track (22.038mm,9mm)(23.838mm,9mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDF24QIQWKX3LBE4JOCZ3HWX2TYPZQHUX3M54CPMMEUKJA3N0HL1VG"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Board Clearance Constraint (Gap=0mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1040.713mil|Location2.X=1053.774mil|Location1.Y=1282.84mil|Location2.Y=1295.9mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1040.713mil|Location2.X=1053.774mil|Location1.Y=1282.84mil|Location2.Y=1295.9mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.2mm &lt; 0.3mm) Between Arc (2mm,6.5mm) on Top Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1418.897mil|Location2.X=1431.958mil|Location1.Y=1850.753mil|Location2.Y=1863.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1418.897mil|Location2.X=1431.958mil|Location1.Y=1850.753mil|Location2.Y=1863.814mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.15mm &lt; 0.3mm) Between Arc (9.706mm,15.5mm) on Top Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1036.776mil|Location2.X=1049.837mil|Location1.Y=1696.225mil|Location2.Y=1709.286mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1036.776mil|Location2.X=1049.837mil|Location1.Y=1696.225mil|Location2.Y=1709.286mil|Absolute=True">Board Outline Clearance(Outline Edge): (0mm &lt; 0.3mm) Between Board Edge And Pad J1-1(2mm,15.5mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1946.742mil|Location2.X=1959.803mil|Location1.Y=1849.852mil|Location2.Y=1862.914mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1946.742mil|Location2.X=1959.803mil|Location1.Y=1849.852mil|Location2.Y=1862.914mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.196mm &lt; 0.3mm) Between Board Edge And Pad J2-1(21.113mm,19.304mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1036.776mil|Location2.X=1049.837mil|Location1.Y=1184.414mil|Location2.Y=1197.475mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1036.776mil|Location2.X=1049.837mil|Location1.Y=1184.414mil|Location2.Y=1197.475mil|Absolute=True">Board Outline Clearance(Outline Edge): (0mm &lt; 0.3mm) Between Board Edge And Pad J3-1(2mm,2.5mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2331.443mil|Location2.X=2344.504mil|Location1.Y=1849.853mil|Location2.Y=1862.914mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2331.443mil|Location2.X=2344.504mil|Location1.Y=1849.853mil|Location2.Y=1862.914mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.196mm &lt; 0.3mm) Between Board Edge And Pad J4-1(30.885mm,19.304mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2138.238mil|Location2.X=2151.299mil|Location1.Y=1849.852mil|Location2.Y=1862.914mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2138.238mil|Location2.X=2151.299mil|Location1.Y=1849.852mil|Location2.Y=1862.914mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.196mm &lt; 0.3mm) Between Board Edge And Pad J6-1(25.977mm,19.304mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2521.391mil|Location2.X=2534.452mil|Location1.Y=1848.753mil|Location2.Y=1861.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2521.391mil|Location2.X=2534.452mil|Location1.Y=1848.753mil|Location2.Y=1861.814mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.252mm &lt; 0.3mm) Between Board Edge And Pad J9-1(35.709mm,19.248mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1244.746mil|Location2.X=1253.62mil|Location1.Y=1897.399mil|Location2.Y=1906.273mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1244.746mil|Location2.X=1253.62mil|Location1.Y=1897.399mil|Location2.Y=1906.273mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.3mm) Between Board Edge And Text "C1" (4.563mm,21.557mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1702.306mil|Location2.X=1711.18mil|Location1.Y=1897.399mil|Location2.Y=1906.273mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1702.306mil|Location2.X=1711.18mil|Location1.Y=1897.399mil|Location2.Y=1906.273mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.3mm) Between Board Edge And Text "C2" (16.018mm,21.557mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1036.752mil|Location2.X=1045.626mil|Location1.Y=1749.399mil|Location2.Y=1758.273mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1036.752mil|Location2.X=1045.626mil|Location1.Y=1749.399mil|Location2.Y=1758.273mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.3mm) Between Board Edge And Text "J1" (0.092mm,17.798mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1828.306mil|Location2.X=1837.18mil|Location1.Y=1899.399mil|Location2.Y=1908.273mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1828.306mil|Location2.X=1837.18mil|Location1.Y=1899.399mil|Location2.Y=1908.273mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.3mm) Between Board Edge And Text "J2" (19.219mm,21.608mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1036.752mil|Location2.X=1045.626mil|Location1.Y=1238.399mil|Location2.Y=1247.273mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1036.752mil|Location2.X=1045.626mil|Location1.Y=1238.399mil|Location2.Y=1247.273mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.3mm) Between Board Edge And Text "J3" (0.092mm,4.818mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2212.306mil|Location2.X=2221.18mil|Location1.Y=1899.399mil|Location2.Y=1908.273mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2212.306mil|Location2.X=2221.18mil|Location1.Y=1899.399mil|Location2.Y=1908.273mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.3mm) Between Board Edge And Text "J4" (28.972mm,21.608mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2019.306mil|Location2.X=2028.18mil|Location1.Y=1899.399mil|Location2.Y=1908.273mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2019.306mil|Location2.X=2028.18mil|Location1.Y=1899.399mil|Location2.Y=1908.273mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.3mm) Between Board Edge And Text "J6" (24.07mm,21.608mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2402.306mil|Location2.X=2411.18mil|Location1.Y=1897.399mil|Location2.Y=1906.273mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2402.306mil|Location2.X=2411.18mil|Location1.Y=1897.399mil|Location2.Y=1906.273mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.3mm) Between Board Edge And Text "J9" (33.798mm,21.557mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1040.658mil|Location2.X=1053.719mil|Location1.Y=1382.753mil|Location2.Y=1395.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1040.658mil|Location2.X=1053.719mil|Location1.Y=1382.753mil|Location2.Y=1395.814mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.197mm &lt; 0.3mm) Between Board Edge And Text "LD1" (0.397mm,9.238mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2522.997mil|Location2.X=2536.058mil|Location1.Y=1031.855mil|Location2.Y=1044.916mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2522.997mil|Location2.X=2536.058mil|Location1.Y=1031.855mil|Location2.Y=1044.916mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.25mm &lt; 0.3mm) Between Board Edge And Track (37.75mm,0.75mm)(39.75mm,2.75mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1321.341mil|Location2.X=1334.402mil|Location1.Y=1032.29mil|Location2.Y=1045.351mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1321.341mil|Location2.X=1334.402mil|Location1.Y=1032.29mil|Location2.Y=1045.351mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.272mm &lt; 0.3mm) Between Board Edge And Track (7.228mm,0.772mm)(7.228mm,15.478mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1322.21mil|Location2.X=1335.271mil|Location1.Y=1031.855mil|Location2.Y=1044.916mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1322.21mil|Location2.X=1335.271mil|Location1.Y=1031.855mil|Location2.Y=1044.916mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.25mm &lt; 0.3mm) Between Board Edge And Track (7.228mm,0.772mm)(7.25mm,0.75mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1322.21mil|Location2.X=1335.271mil|Location1.Y=1031.855mil|Location2.Y=1044.916mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1322.21mil|Location2.X=1335.271mil|Location1.Y=1031.855mil|Location2.Y=1044.916mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.25mm &lt; 0.3mm) Between Board Edge And Track (7.25mm,0.75mm)(37.75mm,0.75mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1322.21mil|Location2.X=1335.271mil|Location1.Y=1029.197mil|Location2.Y=1042.258mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Project\AVR\Tiny13PWM\PWM\PCB\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1322.21mil|Location2.X=1335.271mil|Location1.Y=1029.197mil|Location2.Y=1042.258mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.115mm &lt; 0.3mm) Between Board Edge And Via (7.25mm,0.75mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
